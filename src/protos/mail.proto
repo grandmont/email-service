@@ -12,7 +12,7 @@ message MailRequest {
     string from = 1;
     string to = 2;
     string subject = 3;
-    string html = 4;
+    string template = 4;
 }
 
 message Response {

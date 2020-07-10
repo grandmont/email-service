@@ -1,27 +1,30 @@
-import transport from "../config/mail";
+import path from "path";
 import Email from "email-templates";
+// import transport from "../config/mail";
 
 export default async ({ request }, callback) => {
-  console.log(request);
-
-  const { from, to, subject, template } = request;
+  const { from, to, template } = request;
 
   const email = new Email({
+    views: {
+      root: path.resolve(__dirname, "..", "emails"),
+    },
     message: {
       from,
     },
     send: true,
-    transport,
+    transport: {
+      jsonTransport: true,
+    },
   });
 
   await email.send({
-    template: "welcome",
+    template,
     message: {
-      subject,
       to,
     },
     locals: {
-      name: "Elon",
+      name: to,
     },
   });
 

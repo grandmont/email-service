@@ -1,6 +1,8 @@
 let counter = 0;
 
-export default async (call, callback) => {
+const test = async (call, callback) => {
   counter += 1;
   callback(null, { counter });
 };
+
+module.exports = test;

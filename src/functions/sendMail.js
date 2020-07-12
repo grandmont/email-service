@@ -1,8 +1,8 @@
-import path from "path";
-import Email from "email-templates";
-import transport from "../config/email";
+const path = require("path");
+const Email = require("email-templates");
+const transport = require("../config/email");
 
-export default async ({ request }, callback) => {
+const sendMail = async ({ request }, callback) => {
   const { from, to, template } = request;
 
   const email = new Email({
@@ -28,3 +28,5 @@ export default async ({ request }, callback) => {
 
   callback(null, request);
 };
+
+module.exports = sendMail;

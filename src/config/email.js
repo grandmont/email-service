@@ -1,6 +1,6 @@
 const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = process.env;
 
-export default {
+module.exports = {
   host: MAIL_HOST,
   port: MAIL_PORT,
   auth: {

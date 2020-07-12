@@ -1,1 +1,1 @@
-## Transactional Mail Service
+## Email Service

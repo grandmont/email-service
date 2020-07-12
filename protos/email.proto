@@ -1,8 +1,9 @@
 syntax = "proto3";
 
-package mailPackage;
+package emailPackage;
 
-service Mail {
+service Email {
+    rpc test(Void) returns(Counter);
     rpc sendMail(MailRequest) returns(Response);
 }
 
@@ -17,4 +18,8 @@ message MailRequest {
 
 message Response {
     bool status = 1;
+}
+
+message Counter {
+    int32 counter = 1;
 }

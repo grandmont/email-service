@@ -1,6 +1,6 @@
 import path from "path";
 import Email from "email-templates";
-// import transport from "../config/mail";
+import transport from "../config/email";
 
 export default async ({ request }, callback) => {
   const { from, to, template } = request;
@@ -13,9 +13,7 @@ export default async ({ request }, callback) => {
       from,
     },
     send: true,
-    transport: {
-      jsonTransport: true,
-    },
+    transport,
   });
 
   await email.send({

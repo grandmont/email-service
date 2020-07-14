@@ -9,11 +9,20 @@ const sendMail = async ({ request }, callback) => {
     views: {
       root: path.resolve(__dirname, "..", "emails"),
     },
+    juice: true,
+    juiceResources: {
+      preserveImportant: true,
+      webResources: {
+        relativeTo: path.resolve(__dirname, "..", "assets"),
+      },
+    },
     message: {
       from,
     },
     send: true,
-    transport,
+    transport: {
+      jsonTransport: true,
+    },
   });
 
   await email.send({
@@ -22,7 +31,33 @@ const sendMail = async ({ request }, callback) => {
       to,
     },
     locals: {
-      name: to,
+      product: {
+        name: "Kordy",
+        logo: null,
+        url: "https://github.com/arcmena",
+        address: "Avenida Paulista, 1200 - São Paulo - SP",
+      },
+      recipient: {
+        name: to,
+        email: to,
+      },
+      header: {
+        title: `Welcome, gabepereira!`,
+      },
+      content: {
+        presentation: `We are so happy to have you with us!
+          Click on the button below to activate your account and get access to all our features.`,
+        ending: "Kordy team.",
+      },
+      action: {
+        title: "Confirm my registration!",
+        url: "https://github.com/gabepereira",
+        type: "registration",
+      },
+      footer: {
+        copy: `2020 - Kordy. All rights reserved.`,
+        unsubscribe: "https://github.com/grandmont",
+      },
     },
   });
 

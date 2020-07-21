@@ -30,9 +30,10 @@ table.email-wrapper(width='100%', cellpadding='0', cellspacing='0', role='presen
         tr
           td.email-masthead
             if product.logo
-              img(src=`${product.logo}`)
+              a.f-fallback.email-masthead_name(href=`${product.url}`)
+                img.email-masthead_logo(src=`${product.logo}`)
             else
-              a.f-fallback.email-masthead_name(href='#{product.url}')
+              a.f-fallback.email-masthead_name(href=`${product.url}`)
                 | #{product.name}
         // Email Body
         tr
@@ -55,7 +56,7 @@ table.email-wrapper(width='100%', cellpadding='0', cellspacing='0', role='presen
                           table(width='100%', border='0', cellspacing='0', cellpadding='0', role='presentation')
                             tr
                               td(align='center')
-                                a.f-fallback.button(href='#{action.url}', target='_blank') #{action.title}
+                                a.f-fallback.button(href=`${action.url}`, target='_blank') #{action.title}
                     p
                       | #{content.ending}
                     // Sub copy
@@ -64,8 +65,9 @@ table.email-wrapper(width='100%', cellpadding='0', cellspacing='0', role='presen
                         td
                           p.f-fallback.sub
                             | If you&rsquo;re having trouble with the button above, copy and paste the URL below into your web browser.
-                          a.f-fallback.sub(href='#{action.url}')
+                          a.f-fallback.sub(href=`${action.url}`)
                             | #{action.url}
+        // Email Footer
         tr
           td
             table.email-footer(align='center', width='570', cellpadding='0', cellspacing='0', role='presentation')
@@ -74,7 +76,7 @@ table.email-wrapper(width='100%', cellpadding='0', cellspacing='0', role='presen
                   p.f-fallback.sub.align-center
                     | You received this email because we received a #{action.type} request for your account. If you didn't request it you can safely delete this email.
                   span.f-fallback.sub.align-center To stop receiving these emails, you can&nbsp;
-                    a.f-fallback.sub(href='#{footer.unsubscribe}') unsubscribe
+                    a.f-fallback.sub(href=`${footer.unsubscribe}`) unsubscribe
                     span &nbsp;at any time.
                   p
                   br

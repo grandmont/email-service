@@ -1,9 +1,10 @@
 const path = require("path");
 const Email = require("email-templates");
 const transport = require("../config/email");
+const locals = require("../utils/template");
 
-const sendMail = async ({ request }, callback) => {
-  const { from, to, template } = request;
+module.exports = async ({ request }, callback) => {
+  const { from, recipient, action, template } = request;
 
   const email = new Email({
     views: {
@@ -24,54 +25,13 @@ const sendMail = async ({ request }, callback) => {
     transport,
   });
 
-  const data = {
-    product: {
-      name: "Kordy",
-      logo: "https://grpc.io/img/logos/grpc-horizontal-white.png",
-      url: "https://grpc.io/",
-      address: "Avenida Paulista, 1200 - São Paulo - SP",
-    },
-    recipient: {
-      name: "gabepereira",
-      email: to,
-    },
-    header: {
-      title: `Welcome, gabepereira!`,
-    },
-    content: {
-      presentation: `We are so happy to have you with us!
-        Click on the button below to activate your account and get access to all our features.`,
-      ending: `Kordy team.`,
-    },
-    action: {
-      title: "Confirm my registration!",
-      url: "https://github.com/gabepereira",
-      type: "registration",
-    },
-    footer: {
-      copy: `2020 - Kordy. All rights reserved.`,
-      unsubscribe: "https://github.com/grandmont",
-    },
-  };
-
-  // const {
-  //   product: { name, logo, url, address },
-  //   recipient: { name: recipientName, email },
-  //   header: { title },
-  //   content: { presentation, ending },
-  //   action: { title, url, type },
-  //   footer: { copy, unsubscribe },
-  // } = data;
-
   await email.send({
     template,
     message: {
-      to,
+      to: recipient.email,
     },
-    locals: data,
+    locals: locals[template]({ recipient, action }),
   });
 
   callback(null, request);
 };
-
-module.exports = sendMail;

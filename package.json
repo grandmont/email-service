@@ -4,7 +4,8 @@
   "version": "1.0.1",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "test": "jest --coverage"
   },
   "repository": "https://github.com/grandmont/email-service.git",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "pug": "^3.0.0"
   },
   "devDependencies": {
+    "jest": "^26.1.0",
     "nodemon": "^2.0.4"
   }
 }

@@ -1,17 +1,26 @@
 const path = require("path");
 const Email = require("email-templates");
 const transport = require("../config/email");
+const locals = require("../utils/template");
 
-const sendMail = async ({ request }, callback) => {
-  const { from, to, template } = request;
+module.exports = async ({ request }, callback) => {
+  const { from, recipient, action, template } = request;
 
   const email = new Email({
     views: {
       root: path.resolve(__dirname, "..", "emails"),
     },
+    juice: true,
+    juiceResources: {
+      preserveImportant: true,
+      webResources: {
+        relativeTo: path.resolve(__dirname, "..", "assets"),
+      },
+    },
     message: {
       from,
     },
+    preview: false,
     send: true,
     transport,
   });
@@ -19,14 +28,10 @@ const sendMail = async ({ request }, callback) => {
   await email.send({
     template,
     message: {
-      to,
+      to: recipient.email,
     },
-    locals: {
-      name: to,
-    },
+    locals: locals[template]({ recipient, action }),
   });
 
   callback(null, request);
 };
-
-module.exports = sendMail;

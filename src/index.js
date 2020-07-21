@@ -1,14 +1,15 @@
-import path from "path";
-import grpc from "grpc";
-import * as protoLoader from "@grpc/proto-loader";
-import "./config/environment";
+const path = require("path");
+const grpc = require("grpc");
+const protoLoader = require("@grpc/proto-loader");
+
+require("./config/environment");
 
 // RPC Functions
-import sendMail from "./functions/sendMail";
-import test from "./functions/test";
+const sendMail = require("./functions/sendMail");
+const counter = require("./functions/counter");
 
 const { emailPackage } = grpc.loadPackageDefinition(
-  protoLoader.loadSync(path.join(__dirname, "..", "protos", "email.proto"), {})
+  protoLoader.loadSync(path.join(__dirname, "email.proto"))
 );
 
 const { PORT = 40000 } = process.env;
@@ -17,9 +18,9 @@ const server = new grpc.Server();
 server.bind(`0.0.0.0:${PORT}`, grpc.ServerCredentials.createInsecure());
 server.addService(emailPackage.Email.service, {
   sendMail,
-  test,
+  test: counter,
 });
 
 server.start();
 
-console.log(`Email microservice running on 0.0.0.0:%s`, PORT);
+console.log(`Email service running on 0.0.0.0:%s`, PORT);

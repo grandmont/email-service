@@ -36,4 +36,6 @@ const welcome = ({ recipient, action }) => ({
   },
 });
 
-module.exports = { welcome };
+const resetPassword = ({ recipient, action }) => ({});
+
+module.exports = { welcome: welcome, "reset-password": resetPassword };

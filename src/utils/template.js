@@ -36,6 +36,26 @@ const welcome = ({ recipient, action }) => ({
   },
 });
 
-const resetPassword = ({ recipient, action }) => ({});
+const resetPassword = ({ recipient, action }) => ({
+  product,
+  recipient,
+  header: {
+    title: `Hi, ${recipient.name}!`,
+  },
+  content: {
+    presentation: `You recently requested to reset your password for your ${PRODUCT_NAME} account.
+      Use the button below to reset it. This password reset is only valid for the next 24 hours.`,
+    ending: `If you did not request a password reset, please ignore this email.`,
+  },
+  action: {
+    title: "Reset password!",
+    url: action,
+    type: "password reset",
+  },
+  footer: {
+    copy: `2020 - ${PRODUCT_NAME}. All rights reserved.`,
+    unsubscribe: UNSUBSCRIBE,
+  },
+});
 
 module.exports = { welcome: welcome, "reset-password": resetPassword };

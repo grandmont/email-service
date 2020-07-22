@@ -17,6 +17,7 @@ const product = {
 const welcome = ({ recipient, action }) => ({
   product,
   recipient,
+  subject: `Welcome to ${PRODUCT_NAME}!`,
   header: {
     title: `Welcome, ${recipient.name}!`,
   },
@@ -39,6 +40,7 @@ const welcome = ({ recipient, action }) => ({
 const resetPassword = ({ recipient, action }) => ({
   product,
   recipient,
+  subject: `${PRODUCT_NAME} - Password reset request.`,
   header: {
     title: `Hi, ${recipient.name}!`,
   },

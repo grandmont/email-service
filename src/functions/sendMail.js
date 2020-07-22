@@ -26,7 +26,7 @@ module.exports = async ({ request }, callback) => {
   });
 
   await email.send({
-    template,
+    template: "main",
     message: {
       to: recipient.email,
     },
